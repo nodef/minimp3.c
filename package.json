@@ -1,0 +1,26 @@
+{
+  "name": "minimp3.c",
+  "version": "1.0.0",
+  "description": "Minimalistic MP3 decoder single header library; Lion (2018).",
+  "keywords": [
+    "c",
+    "library",
+    "mp3",
+    "audio",
+    "decoder"
+  ],
+  "homepage": "https://github.com/nodef/minimp3.c#readme",
+  "bugs": {
+    "url": "https://github.com/nodef/minimp3.c/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodef/minimp3.c.git"
+  },
+  "license": "CC0-1.0",
+  "author": "wolfram77@gmail.com",
+  "main": "minimp3.h",
+  "scripts": {
+    "test": "exit"
+  }
+}
