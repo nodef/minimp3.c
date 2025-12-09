@@ -1,6 +1,6 @@
 {
   "name": "minimp3.c",
-  "version": "1.0.0",
+  "version": "1.2021.11",
   "description": "Minimalistic MP3 decoder single header library; Lion (2018).",
   "keywords": [
     "c",
