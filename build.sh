@@ -1,6 +1,51 @@
 #!/usr/bin/env bash
-URL="https://raw.githubusercontent.com/lieff/minimp3/refs/heads/master"
-rm   -rf minimp3
+# Fetch the latest version of the library
+fetch() {
+if [ -d "minimp3" ]; then return; fi
+URL="https://github.com/lieff/minimp3/archive/refs/heads/master.zip"
+ZIP="${URL##*/}"
+DIR="minimp3-master"
+mkdir -p .build
+cd .build
+
+# Download the release
+if [ ! -f "$ZIP" ]; then
+  echo "Downloading $ZIP from $URL ..."
+  curl -L "$URL" -o "$ZIP"
+  echo ""
+fi
+
+# Unzip the release
+if [ ! -d "$DIR" ]; then
+  echo "Unzipping $ZIP to .build/$DIR ..."
+  cp "$ZIP" "$ZIP.bak"
+  unzip -q "$ZIP"
+  rm "$ZIP"
+  mv "$ZIP.bak" "$ZIP"
+  echo ""
+fi
+cd ..
+
+# Copy the libs to the package directory
+echo "Copying libs to taskflow/ ..."
+rm -rf minimp3
 mkdir -p minimp3
-curl -L "$URL/minimp3.h"    -o minimp3/minimp3.h
-curl -L "$URL/minimp3_ex.h" -o minimp3/minimp3_ex.h
+cp -f  ".build/$DIR/"*.h minimp3/
+cp -rf ".build/$DIR/huffopt" minimp3/
+echo ""
+}
+
+
+# Test the project
+test() {
+echo "Running 01-simple ..."
+clang++ -std=c++20 -I. -o 01.exe examples/01-simple.cxx   && ./01.exe && echo -e "\n"
+echo "Running 02-pipeline ..."
+clang++ -std=c++20 -I. -o 02.exe examples/02-pipeline.cxx && ./02.exe && echo -e "\n"
+}
+
+
+# Main script
+if [[ "$1" == "test" ]]; then test
+elif [[ "$1" == "fetch" ]]; then fetch
+else echo "Usage: $0 {fetch|test}"; fi

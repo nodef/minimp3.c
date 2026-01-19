@@ -21,6 +21,6 @@
   "author": "wolfram77@gmail.com",
   "main": "minimp3.h",
   "scripts": {
-    "test": "exit"
+    "test": "bash build.sh test"
   }
 }
